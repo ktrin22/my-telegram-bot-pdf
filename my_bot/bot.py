@@ -2,12 +2,10 @@ import asyncio
 import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.filters import Command  # <-- новый импорт
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Временно захардкодим токен для теста, потом уберём в переменную
 TOKEN = '8811607158:AAGIoLeOrctkPEeVRaH91PjywTt6dRdOiHQ'   # Временно
 CHANNEL_ID = '@Simple_Word_English'
 
@@ -20,7 +18,7 @@ FILES = {
 }
 
 bot = Bot(token=TOKEN)
-dp = Dispatcher()
+dp = Dispatcher(bot)  # В aiogram 2.x нужно передавать bot в Dispatcher
 
 async def is_subscribed(user_id):
     try:
@@ -29,20 +27,16 @@ async def is_subscribed(user_id):
     except:
         return False
 
-# Новый синтаксис для команды /start
-@dp.message(Command("start"))
+# Используем старый синтаксис для команды /start
+@dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    # Новый формат клавиатуры
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(text=info["name"], callback_data=cmd)]
-            for cmd, info in FILES.items()
-        ]
-    )
+    keyboard = InlineKeyboardMarkup(row_width=2)
+    for cmd, info in FILES.items():
+        keyboard.add(InlineKeyboardButton(info["name"], callback_data=cmd))
     await message.answer("📚 Выберите книгу:", reply_markup=keyboard)
 
-# Новый синтаксис для callback-запросов
-@dp.callback_query(lambda c: c.data in FILES)
+# Старый синтаксис для callback
+@dp.callback_query_handler(lambda c: c.data in FILES)
 async def send_file(callback: types.CallbackQuery):
     user_id = callback.from_user.id
     if not await is_subscribed(user_id):
@@ -55,7 +49,7 @@ async def send_file(callback: types.CallbackQuery):
     await callback.answer()
 
 async def main():
-    await dp.start_polling(bot)
+    await dp.start_polling()
 
 if __name__ == "__main__":
     asyncio.run(main())
