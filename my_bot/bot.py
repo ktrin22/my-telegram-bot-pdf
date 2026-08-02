@@ -2,22 +2,22 @@ import asyncio
 import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.filters import Command  # <-- новый импорт
 from dotenv import load_dotenv
 
-# Загружаем переменные окружения (токен будет передан через Render)
 load_dotenv()
 
-TOKEN = '8811607158:AAGIoLeOrctkPEeVRaH91PjywTt6dRdOiHQ'   # Временно, для теста # Render передаст это значение
-CHANNEL_ID = '@Simple_Word_English'       # Замените на ваш канал, например, @my_channel
+# Временно захардкодим токен для теста, потом уберём в переменную
+TOKEN = '8811607158:AAGIoLeOrctkPEeVRaH91PjywTt6dRdOiHQ'   # Временно
+CHANNEL_ID = '@Simple_Word_English'
 
-# Список файлов. Добавляйте сколько угодно.
 FILES = {
     "book1": {"path": "files/Английский для путешествий- Simple_Word_English_Workbook.pdf", "name": "Английский для путешествий"},
     "book2": {"path": "files/200 глаголов_Simple_Word_English.pdf", "name": "200 глаголов"},
     "book3": {"path": "files/200 слов Шопинг  - Simple Word English.pdf", "name": "200 слов Шопинг"}, 
     "book4": {"path": "files/110 слов Офис и работа - Simple Word English.pdf", "name": "110 слов Офис и работа"}, 
     "book5": {"path": "files/100 +10 Прилагательных - Simple Word English.pdf", "name": "100 +10 Прилагательных"}
-    }
+}
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
@@ -29,14 +29,20 @@ async def is_subscribed(user_id):
     except:
         return False
 
-@dp.message_handler(commands=['start'])
+# Новый синтаксис для команды /start
+@dp.message(Command("start"))
 async def start(message: types.Message):
-    keyboard = InlineKeyboardMarkup(row_width=2)
-    for cmd, info in FILES.items():
-        keyboard.add(InlineKeyboardButton(info["name"], callback_data=cmd))
+    # Новый формат клавиатуры
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text=info["name"], callback_data=cmd)]
+            for cmd, info in FILES.items()
+        ]
+    )
     await message.answer("📚 Выберите книгу:", reply_markup=keyboard)
 
-@dp.callback_query_handler(lambda c: c.data in FILES)
+# Новый синтаксис для callback-запросов
+@dp.callback_query(lambda c: c.data in FILES)
 async def send_file(callback: types.CallbackQuery):
     user_id = callback.from_user.id
     if not await is_subscribed(user_id):
