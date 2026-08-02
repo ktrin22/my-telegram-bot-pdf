@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-TOKEN = '8811607158:AAGIoLeOrctkPEeVRaH91PjywTt6dRdOiHQ'   # Временно
+TOKEN = os.getenv('BOT_TOKEN')
 CHANNEL_ID = '@Simple_Word_English'
 
 FILES = {
