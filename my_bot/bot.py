@@ -10,7 +10,7 @@ TOKEN = '8811607158:AAGIoLeOrctkPEeVRaH91PjywTt6dRdOiHQ'   # Временно
 CHANNEL_ID = '@Simple_Word_English'
 
 FILES = {
-    "book1": {"path": "files/Английский для путешествий- Simple_Word_English_Workbook.pdf", "name": "Английский для путешествий"},
+    "book1": {"path": "my_bot/files/Английский для путешествий- Simple_Word_English_Workbook.pdf", "name": "Английский для путешествий"},
     "book2": {"path": "files/200 глаголов_Simple_Word_English.pdf", "name": "200 глаголов"},
     "book3": {"path": "files/200 слов Шопинг  - Simple Word English.pdf", "name": "200 слов Шопинг"}, 
     "book4": {"path": "files/110 слов Офис и работа - Simple Word English.pdf", "name": "110 слов Офис и работа"}, 
