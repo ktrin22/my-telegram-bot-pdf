@@ -33,7 +33,7 @@ async def start(message: types.Message):
     keyboard = InlineKeyboardMarkup(row_width=2)
     for cmd, info in FILES.items():
         keyboard.add(InlineKeyboardButton(info["name"], callback_data=cmd))
-    await message.answer("📚 Выберите книгу:", reply_markup=keyboard)
+    await message.answer("📚 Выберите PDF-словарь:", reply_markup=keyboard)
 
 # Старый синтаксис для callback
 @dp.callback_query_handler(lambda c: c.data in FILES)
