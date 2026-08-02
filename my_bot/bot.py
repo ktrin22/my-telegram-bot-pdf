@@ -17,8 +17,11 @@ FILES = {
     "book5": {"path": "my_bot/files/100 +10 Прилагательных - Simple Word English.pdf", "name": "100 +10 Прилагательных"}
 }
 
+# Статистика скачиваний
+download_stats = {key: 0 for key in FILES.keys()}
+
 bot = Bot(token=TOKEN)
-dp = Dispatcher(bot)  # В aiogram 2.x нужно передавать bot в Dispatcher
+dp = Dispatcher(bot)
 
 async def is_subscribed(user_id):
     try:
@@ -27,26 +30,60 @@ async def is_subscribed(user_id):
     except:
         return False
 
-# Используем старый синтаксис для команды /start
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
     keyboard = InlineKeyboardMarkup(row_width=2)
     for cmd, info in FILES.items():
         keyboard.add(InlineKeyboardButton(info["name"], callback_data=cmd))
-    await message.answer("📚 Выберите PDF-словарь:", reply_markup=keyboard)
+    
+    welcome_text = (
+        "👋 Добро пожаловать в библиотеку Simple Word English!\n\n"
+        "📚 Чтобы скачать PDF-словарь, выберите нужный файл ниже.\n"
+        "🔔 Для доступа необходимо быть подписанным на наш канал @Simple_Word_English.\n\n"
+        "✅ Подпишитесь и скачивайте файлы бесплатно!"
+    )
+    
+    await message.answer(welcome_text, reply_markup=keyboard)
 
-# Старый синтаксис для callback
 @dp.callback_query_handler(lambda c: c.data in FILES)
 async def send_file(callback: types.CallbackQuery):
     user_id = callback.from_user.id
     if not await is_subscribed(user_id):
-        await callback.message.answer(f"❌ Подпишитесь на канал {CHANNEL_ID}")
+        keyboard = InlineKeyboardMarkup(row_width=1)
+        keyboard.add(InlineKeyboardButton(
+            text="📢 Подписаться на канал",
+            url="https://t.me/Simple_Word_English"
+        ))
+        await callback.message.answer(
+            f"❌ Для доступа к файлам необходимо подписаться на канал @Simple_Word_English.\n"
+            f"Нажмите кнопку ниже, чтобы подписаться, а затем попробуйте снова.",
+            reply_markup=keyboard
+        )
         await callback.answer()
         return
+    
     file_info = FILES[callback.data]
+    
+    # Увеличиваем счётчик
+    download_stats[callback.data] += 1
+    print(f"📊 Файл '{file_info['name']}' скачан {download_stats[callback.data]} раз(а)")
+    
     with open(file_info["path"], "rb") as f:
         await callback.message.answer_document(f, caption=file_info["name"])
     await callback.answer()
+
+@dp.message_handler(commands=['stats'])
+async def stats(message: types.Message):
+    # Замените 123456789 на ваш Telegram ID
+    if message.from_user.id != 477713863:
+        await message.answer("⛔ У вас нет доступа к этой команде.")
+        return
+    
+    stats_text = "📊 Статистика скачиваний:\n\n"
+    for key, count in download_stats.items():
+        stats_text += f"📄 {FILES[key]['name']}: {count} скачиваний\n"
+    
+    await message.answer(stats_text)
 
 async def main():
     await dp.start_polling()
