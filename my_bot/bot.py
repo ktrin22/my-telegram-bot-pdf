@@ -16,7 +16,8 @@ FILES = {
     "book2": {"path": "files/200 глаголов_Simple_Word_English.pdf", "name": "200 глаголов"},
     "book3": {"path": "files/200 слов Шопинг  - Simple Word English.pdf", "name": "200 слов Шопинг"}, 
     "book4": {"path": "files/110 слов Офис и работа - Simple Word English.pdf", "name": "110 слов Офис и работа"}, 
-    "book5": {"path": "100 +10 Прилагательных - Simple Word English.pdf", "name": "100 +10 Прилагательных"}
+    "book5": {"path": "files/100 +10 Прилагательных - Simple Word English.pdf", "name": "100 +10 Прилагательных"}
+    }
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
