@@ -11,10 +11,10 @@ CHANNEL_ID = '@Simple_Word_English'
 
 FILES = {
     "book1": {"path": "my_bot/files/Английский для путешествий- Simple_Word_English_Workbook.pdf", "name": "Английский для путешествий"},
-    "book2": {"path": "files/200 глаголов_Simple_Word_English.pdf", "name": "200 глаголов"},
-    "book3": {"path": "files/200 слов Шопинг  - Simple Word English.pdf", "name": "200 слов Шопинг"}, 
-    "book4": {"path": "files/110 слов Офис и работа - Simple Word English.pdf", "name": "110 слов Офис и работа"}, 
-    "book5": {"path": "files/100 +10 Прилагательных - Simple Word English.pdf", "name": "100 +10 Прилагательных"}
+    "book2": {"path": "my_bot/files/200 глаголов_Simple_Word_English.pdf", "name": "200 глаголов"},
+    "book3": {"path": "my_bot/files/200 слов Шопинг  - Simple Word English.pdf", "name": "200 слов Шопинг"}, 
+    "book4": {"path": "my_bot/files/110 слов Офис и работа - Simple Word English.pdf", "name": "110 слов Офис и работа"}, 
+    "book5": {"path": "my_bot/files/100 +10 Прилагательных - Simple Word English.pdf", "name": "100 +10 Прилагательных"}
 }
 
 bot = Bot(token=TOKEN)
