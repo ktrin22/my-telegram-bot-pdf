@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 # Загружаем переменные окружения (токен будет передан через Render)
 load_dotenv()
 
-TOKEN = os.getenv('8811607158:AAGIoLeOrctkPEeVRaH91PjywTt6dRdOiHQ')  # Render передаст это значение
+TOKEN = os.getenv('BOT_TOKEN')  # Render передаст это значение
 CHANNEL_ID = '@Simple_Word_English'       # Замените на ваш канал, например, @my_channel
 
 # Список файлов. Добавляйте сколько угодно.
