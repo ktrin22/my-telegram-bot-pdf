@@ -18,6 +18,7 @@ FILES = {
     "book4": {"path": "my_bot/files/110 слов Офис и работа - Simple Word English.pdf", "name": "110 слов Офис и работа"},
     "book5": {"path": "my_bot/files/100 +10 Прилагательных - Simple Word English.pdf", "name": "100 +10 Прилагательных"},
     "book6": {"path": "my_bot/files/300 самых нужных слов - Simple Word English.pdf", "name": "От нуля до B2: 300 английских слов"}
+    "book7": {"path": "my_bot/files/100 фразовых глаголов - Simple Word English.pdf", "name": "100 фразовых глаголов"}
 }
 
 DB_PATH = "my_bot/stats.db"
