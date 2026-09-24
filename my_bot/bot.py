@@ -20,7 +20,8 @@ FILES = {
     "book6": {"path": "my_bot/files/300 самых нужных слов - Simple Word English.pdf", "name": "От нуля до B2: 300 английских слов"},
     "book7": {"path": "my_bot/files/100 фразовых глаголов - Simple Word English.pdf", "name": "100 фразовых глаголов"},
     "book8": {"path": "my_bot/files/100 фразовых глаголов (часть 2) – Simple Word English.pdf", "name": "100 фразовых глаголов. Часть 2"},
-    "book9": {"path": "my_bot/files/100 фразовых глаголов (часть 3) – Simple Word English.pdf", "name": "100 фразовых глаголов. Часть 3"}
+    "book9": {"path": "my_bot/files/100 фразовых глаголов (часть 3) – Simple Word English.pdf", "name": "100 фразовых глаголов. Часть 3"},
+    "book10": {"path": "my_bot/files/100 самых нужных фраз - Simple Word English.pdf", "name": "100 самых нужных фраз"}
 }
 
 DB_PATH = "my_bot/stats.db"
